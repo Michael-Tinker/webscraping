@@ -15,11 +15,21 @@ from bs4 import BeautifulSoup
 url = 'https://www.tradingview.com/markets/stocks-usa/market-movers-gainers/'
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.3'}
 
-		
+req = Request(url, headers=headers)
 
+webpage = urlopen(req).read()
 
+soup = BeautifulSoup(webpage, 'html.parser')
 
+title = soup.title
 
+print(title.text)		
+
+companies = soup.findAll("span", attrs={"class":"tv-screener__description"})
+#print(companies)
+
+for company in companies[:5]:
+    print(company.text.strip())
 
 
 #SOME USEFUL FUNCTIONS IN BEAUTIFULSOUP
